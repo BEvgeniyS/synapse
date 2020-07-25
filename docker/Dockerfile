@@ -24,6 +24,11 @@ FROM docker.io/python:${PYTHON_VERSION}-slim as builder
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
+    libffi-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libssl-dev \
+    zlib1g-dev \
  && rm -rf /var/lib/apt/lists/*
 
 # Build dependencies that are not available as wheels, to speed up rebuilds
