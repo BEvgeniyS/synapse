@@ -24,11 +24,16 @@ FROM docker.io/python:${PYTHON_VERSION}-slim as builder
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
-    libffi-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    libssl-dev \
-    zlib1g-dev \
+ && if (uname -m | grep -qE '^arm.*'); then \
+      apt-get install -y \
+      libffi-dev \
+      libxml2-dev \
+      libxslt1-dev \
+      libssl-dev \
+      zlib1g-dev \
+      libjpeg-dev \
+      libpng-dev \
+ ;  fi \
  && rm -rf /var/lib/apt/lists/*
 
 # Build dependencies that are not available as wheels, to speed up rebuilds
